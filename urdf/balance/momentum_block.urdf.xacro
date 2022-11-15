@@ -1,0 +1,51 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:property name="max_effort" value="6"/>
+    <xacro:property name="max_velocity" value="76"/>
+
+    <xacro:macro name="momentum_block"
+                 params="connected_to block_z_offset mechanical_reduction">
+        <link name="momentum_block">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rm_description/meshes/balance/momentum_block.stl"
+                          scale="0.001 .001 0.001"/>
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rm_description/meshes/balance/momentum_block.stl"
+                          scale="0.001 .001 0.001"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="1.854"/>
+                <origin xyz="0 0 0.0574"/>
+                <inertia ixx="4.802e-2" ixy="2046.479e-9" ixz="4753.67e-9" iyy="2.088e-3" iyz="2.759e-4"
+                         izz="4.778e-2"/>
+            </inertial>
+        </link>
+
+        <joint name="momentum_block_joint" type="prismatic">
+            <axis xyz="1 0 0"/>
+            <origin xyz="0 0 ${block_z_offset}" rpy="0 0 0"/>
+            <parent link="${connected_to}"/>
+            <child link="momentum_block"/>
+            <limit effort="${max_effort}" velocity="${max_velocity}" lower="-0.14" upper="0.14"/>
+        </joint>
+
+        <transmission name="momentum_block_joint_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <actuator name="momentum_block_joint_motor">
+                <mechanicalReduction>${mechanical_reduction}</mechanicalReduction>
+            </actuator>
+            <joint name="momentum_block_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+        </transmission>
+
+    </xacro:macro>
+
+</robot>
