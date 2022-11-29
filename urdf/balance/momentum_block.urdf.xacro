@@ -1,47 +1,54 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <xacro:property name="max_effort" value="6"/>
-    <xacro:property name="max_velocity" value="76"/>
+    <xacro:property name="max_effort" value="80"/>
+    <xacro:property name="max_velocity" value="1"/>
 
     <xacro:macro name="momentum_block"
-                 params="connected_to block_z_offset mechanical_reduction">
-        <link name="momentum_block">
+                 params="prefix reflect connected_to x_offset y_offset z_offset mechanical_reduction">
+        <link name="${prefix}_momentum_block">
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <mesh filename="package://rm_description/meshes/balance/momentum_block.stl"
+                    <mesh filename="package://rm_description/meshes/balance/${prefix}_momentum_block.stl"
                           scale="0.001 .001 0.001"/>
                 </geometry>
             </visual>
             <collision>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <mesh filename="package://rm_description/meshes/balance/momentum_block.stl"
+                    <mesh filename="package://rm_description/meshes/balance/${prefix}_momentum_block.stl"
                           scale="0.001 .001 0.001"/>
                 </geometry>
             </collision>
             <inertial>
-                <mass value="1.854"/>
-                <origin xyz="0 0 0.0574"/>
-                <inertia ixx="4.802e-2" ixy="2046.479e-9" ixz="4753.67e-9" iyy="2.088e-3" iyz="2.759e-4"
-                         izz="4.778e-2"/>
+                <mass value="0.927"/>
+                <xacro:if value="${reflect == 1}">
+                    <origin xyz="0 -2.777e-3 45.973e-3"/>
+                    <inertia ixx="8.631E-4" ixy="3829.845E-9" ixz="1971.977E-9" iyy="9.715E-4" iyz="38124.117E-9"
+                             izz="5.924E-4"/>
+                </xacro:if>
+                <xacro:if value="${reflect == -1}">
+                    <origin xyz="0 2.777e-3 45.973e-3"/>
+                    <inertia ixx="7.732E-4" ixy="-3626.93e-9" ixz="2700.793e-9" iyy="8.723E-4" iyz="-15322.801E-9"
+                             izz="5.675E-4"/>
+                </xacro:if>
             </inertial>
         </link>
 
-        <joint name="momentum_block_joint" type="prismatic">
+        <joint name="${prefix}_momentum_block_joint" type="prismatic">
             <axis xyz="1 0 0"/>
-            <origin xyz="0 0 ${block_z_offset}" rpy="0 0 0"/>
+            <origin xyz="${x_offset} ${y_offset} ${z_offset}" rpy="0 0 0"/>
             <parent link="${connected_to}"/>
-            <child link="momentum_block"/>
+            <child link="${prefix}_momentum_block"/>
             <limit effort="${max_effort}" velocity="${max_velocity}" lower="-0.14" upper="0.14"/>
         </joint>
 
-        <transmission name="momentum_block_joint_trans">
+        <transmission name="${prefix}_momentum_block_joint_trans">
             <type>transmission_interface/SimpleTransmission</type>
-            <actuator name="momentum_block_joint_motor">
+            <actuator name="${prefix}_momentum_block_joint_motor">
                 <mechanicalReduction>${mechanical_reduction}</mechanicalReduction>
             </actuator>
-            <joint name="momentum_block_joint">
+            <joint name="${prefix}_momentum_block_joint">
                 <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             </joint>
         </transmission>
