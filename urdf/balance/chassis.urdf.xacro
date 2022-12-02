@@ -74,14 +74,14 @@
 
         <xacro:momentum_block prefix="left" reflect="1" connected_to="base_link" x_offset="0" y_offset="0.16"
                               z_offset="0.0815"
-                              mechanical_reduction="-0.166"/>
+                              mechanical_reduction="22.22"/>
         <xacro:momentum_block prefix="right" reflect="-1" connected_to="base_link" x_offset="0" y_offset="-0.16"
                               z_offset="0.0815"
-                              mechanical_reduction="-0.166"/>
+                              mechanical_reduction="-22.22"/>
         <xacro:wheel connected_to="base_link" prefix="left" wheel_x_offset="0" wheel_y_offset="${wheel_base/2}"
                      wheel_z_offset="${wheel_z_offset}" mechanical_reduction="19.2032"/>
         <xacro:wheel connected_to="base_link" prefix="right" wheel_x_offset="0" wheel_y_offset="${-wheel_base/2}"
-                     wheel_z_offset="${wheel_z_offset}" mechanical_reduction="19.2032"/>
+                     wheel_z_offset="${wheel_z_offset}" mechanical_reduction="-19.2032"/>
 
     </xacro:macro>
 
