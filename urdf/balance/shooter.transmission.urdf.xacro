@@ -4,11 +4,11 @@
     <transmission name="trans_trigger_joint">
         <type>transmission_interface/SimpleTransmission</type>
         <actuator name="trigger_joint_motor">
-            <mechanicalReduction>69.544</mechanicalReduction>
+            <mechanicalReduction>1</mechanicalReduction>
         </actuator>
         <joint name="trigger_joint">
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-            <offset>0.4</offset>
+            <offset>0.1</offset>
         </joint>
     </transmission>
 
@@ -28,6 +28,17 @@
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
         <joint name="right_friction_wheel_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+    </transmission>
+
+    <transmission name="trans_cover_joint">
+        <type>transmission_interface/SimpleTransmission</type>
+        <actuator name="cover_joint_motor">
+            <mechanicalReduction>-1</mechanicalReduction>
+        </actuator>
+        <joint name="cover_joint">
+            <offset>0</offset>
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
     </transmission>
