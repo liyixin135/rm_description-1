@@ -28,7 +28,7 @@ expect that it changes often and any fitness for a particular purpose is disclai
 #### Dependencies
 
 - [Robot Operating System (ROS)](http://wiki.ros.org) (middleware for robotics),
-- [rm_gazebo](https://github.com/gdut-dynamic-x/rm_gazebo) if `use_rm_gazbe`
+- [smb_gazebo](https://ethz.ch/content/dam/ethz/special-interest/mavt/robotics-n-intelligent-systems/rsl-dam/ROS2021/lec3/smb_common_v2.zip) smb_gazebo is in it
 - gazebo_ros
 - gazebo_ros_control
 - xacro
